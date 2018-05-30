@@ -96,8 +96,9 @@ namespace Clima.ViewModel
             Ubicacion = weatherModel.Query.Results.Channel.Location.City;
             Pais = weatherModel.Query.Results.Channel.Location.Country;
             Region = weatherModel.Query.Results.Channel.Location.Region;
-            UltimaActualizacion = weatherModel.Query.Results.Channel.Item.Condition.Temp;
-            Temperatura = weatherModel.Query.Results.Channel.Item.Condition.Text;
+            UltimaActualizacion = weatherModel.Query.Results.Channel.Item.Condition.Date;
+            Temperatura= weatherModel.Query.Results.Channel.Item.Condition.Temp;
+            Clima = weatherModel.Query.Results.Channel.Item.Condition.Text;
 
            
         }
