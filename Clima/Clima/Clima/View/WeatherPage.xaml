@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Clima.ViewModel"
+             x:Class="Clima.View.WeatherPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:WeatherViewModelPage x:Key ="WeatherViewModel">
+            </local:WeatherViewModelPage>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <!--Buscador-->
+        <SearchBar Placeholder="Ingrese Ciudad" Text="{Binding ResultTerm}" SearchCommand="{Binding BuscarCommand}"></SearchBar>
+        <!--Formulario-->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition><!--fila ubicacion -->
+                <RowDefinition></RowDefinition><!--fila pais -->
+                <RowDefinition></RowDefinition><!--fila region -->
+                <RowDefinition></RowDefinition><!--fila actualizacion -->
+                <RowDefinition></RowDefinition><!--fila temperatura -->
+                <RowDefinition></RowDefinition><!--fila clima -->
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition><!--Columna-->
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Text="{Binding Ubicacion}" FontAttributes="Bold" ></Label>
+            <Label Text="{Binding Pais}" FontAttributes="Bold"></Label>
+            <Label Text="{Binding ResultTerm}" FontAttributes="Bold"></Label>
+            <Label Text="{Binding Region}" FontAttributes="Bold" Grid.Column="1" Grid.Row="2"></Label>
+            <Label Text="{Binding UltimaActualizacion}" FontAttributes="Bold" Grid.Column="1" Grid.Row="4"></Label>
+            <Label Text="{Binding Clima}" FontAttributes="Bold" Grid.Column="1" Grid.Row="4"></Label>
+            <Label Text="{Binding Temperatura}" FontAttributes="Bold" Grid.Column="1" Grid.Row="4"></Label>
+            <Label Text="{Binding Imagen}" FontAttributes="Bold"></Label>
+            
+        </Grid>
+        <Image  HeightRequest="200" WidthRequest="200"></Image>
+        
+    </ContentPage.Content>
+</ContentPage>

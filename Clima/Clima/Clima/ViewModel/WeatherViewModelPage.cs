@@ -1,6 +1,8 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using Clima.Model;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -78,10 +80,33 @@ namespace Clima.ViewModel
         }
         #endregion
         #region Metodos
-        private void Buscar()
+        private async void Buscar()
         {
-            throw new NotImplementedException();
+            HttpClient cliente = new HttpClient();
+            cliente.BaseAddress = new Uri(ObtenerURL());
+            var response = await cliente.GetAsync(cliente.BaseAddress);
+            response.EnsureSuccessStatusCode();
+            var jsonResult = response.Content.ReadAsStringAsync().Result;
+            var weatherModel = Weather.FromJson(jsonResult);
+            FijarValores(weatherModel);
         }
+
+        private void FijarValores(Weather weatherModel)
+        {
+            Ubicacion = weatherModel.Query.Results.Channel.Location.City;
+            Pais = weatherModel.Query.Results.Channel.Location.Country;
+            Region = weatherModel.Query.Results.Channel.Location.Region;
+            UltimaActualizacion = weatherModel.Query.Results.Channel.Item.Condition.Temp;
+            Temperatura = weatherModel.Query.Results.Channel.Item.Condition.Text;
+
+           
+        }
+
+        private string ObtenerURL() {
+            string serviceURL = $"https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22tunja%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
+                return serviceURL;
+        }
+
         #endregion
 
     }
